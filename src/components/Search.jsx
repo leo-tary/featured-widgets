@@ -25,10 +25,24 @@ const Search = () => {
 			});
 			console.log(data.query.search);
 			setSearchResults(data.query.search);
-		};
-		if (term) {
-			search();
-		}
+        };
+        
+        const timeoutId = setTimeout(() => {
+
+            if(term) {
+                search();
+            }
+
+        } , 750)
+        
+// useEffect Cleanup(Below) Function(Called whenever the function is re-rendered)
+// Note: Below Cleanup function will always be called first before the component is actually re-rendered
+
+        return () => {
+            clearTimeout(timeoutId);
+        }
+
+
 	}, [term]);
 
 	const renderArticles = () => {
@@ -61,7 +75,7 @@ const Search = () => {
 		<div>
 			<div className="ui form">
 				<div className="field">
-					<label>Enter Search Term:</label>
+					<label className="label">Enter Search Term:</label>
 					<input
 						className="input"
 						value={term !== '' ? term : ''}
