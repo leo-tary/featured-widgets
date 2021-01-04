@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 
-const Dropdown = ({ options, selected, onSelectedChange }) => {
+const Dropdown = ({ type , options, selected, onSelectedChange }) => {
     const [open, setOpen] = useState(false);
     const ref = useRef();
 	// console.log(options);
@@ -35,10 +35,21 @@ const Dropdown = ({ options, selected, onSelectedChange }) => {
 		);
 	});
 
-    const showColoredText = (selected) => {
+    const showNoShowColor = (type) => {
+
+        if(type === 'color'){
+            return selected === null ? `No ${type} Chosen`: showSelectedText();
+        }else{
+            return `The ${type} is ${selected.label}`;
+        }
+  
+    }
+
+
+    const showSelectedText = () => {
         const colorClass = `${selected.value}`;
         return (
-            <div style = { { color:colorClass }}>The color is {selected.value}</div>
+            <div style = { { color:colorClass }}>The {type} is {selected.value}</div>
         )
     }
 
@@ -47,7 +58,7 @@ const Dropdown = ({ options, selected, onSelectedChange }) => {
         <React.Fragment>
 		<div ref={ref} className="ui form">
 			<div className="field">
-				<label className="label">Select a color</label>
+				<label className="label">Select a {type}</label>
 				<div
 					onClick={() => {
 						setOpen(!open);
@@ -55,13 +66,14 @@ const Dropdown = ({ options, selected, onSelectedChange }) => {
 					className={`ui selection dropdown ${open ? 'visible active' : ''}`}
 				>
 					<i className="dropdown icon"></i>
-					<div className="text">{ selected === null ? 'Select a color' : selected.label }</div>
+					<div className="text">{ selected === null ? `Select a ${type}` : selected.label }</div>
 					<div className={`menu ${open ? 'visible transition' : ''}`}>{renderedOptions}</div>
 				</div>
 			</div>
 		</div>
         {
-            selected === null ? 'No Color Chosen': showColoredText(selected) 
+            showNoShowColor(type)
+
         }
         </React.Fragment>
 	);
