@@ -35,7 +35,16 @@ const Dropdown = ({ options, selected, onSelectedChange }) => {
 		);
 	});
 
+    const showColoredText = (selected) => {
+        const colorClass = `${selected.value}`;
+        return (
+            <div style = { { color:colorClass }}>The color is {selected.value}</div>
+        )
+    }
+
+
 	return (
+        <React.Fragment>
 		<div ref={ref} className="ui form">
 			<div className="field">
 				<label className="label">Select a color</label>
@@ -51,6 +60,10 @@ const Dropdown = ({ options, selected, onSelectedChange }) => {
 				</div>
 			</div>
 		</div>
+        {
+            selected === null ? 'No Color Chosen': showColoredText(selected) 
+        }
+        </React.Fragment>
 	);
 };
 
