@@ -10,9 +10,8 @@ import * as dropDownObj from '../services/dropdown';
 const App = () => {
 	// const accordionList = listObj.getAccordion();
 	const dropdownList = dropDownObj.getDropdownList();
-	const [selected, setSelected] = useState(dropdownList[0]);
+	const [selected, setSelected] = useState(null);
 
-    
 	return (
 		// <div className="container"><Accordion items = {accordionList}/></div>
 		// <div className = "container"><Search /></div>
